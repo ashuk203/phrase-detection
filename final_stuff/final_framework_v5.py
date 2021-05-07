@@ -119,7 +119,7 @@ def run_prdualrank(T_0, unranked_patterns, unranked_phrases, file):
                     if 'POS' in pattern_dict:
                         break
                     offset += 1
-                matcher.add("extraction", None, unranked_patterns[i])
+                matcher.add("extraction", [unranked_patterns[i]])
                 matches = matcher(doc)
                 for match_id, start, end in matches:
                     span = doc[start+offset:end].text

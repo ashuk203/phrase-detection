@@ -90,7 +90,7 @@ def run_prdualrank(T_0, unranked_patterns, unranked_phrases, file):
                     if 'POS' in pattern_dict:
                         break
                     offset += 1
-                matcher.add("extraction", None, unranked_patterns[i])
+                matcher.add("extraction", [unranked_patterns[i]])
                 matches = matcher(doc)
                 for match_id, start, end in matches:
                     span = doc[start+offset:end].text
@@ -153,7 +153,7 @@ def get_new_patterns_and_phrases(T_0, T, file, max_patterns, max_keywords):
             for chunk in document.noun_chunks:
                 possible_pattern = chunk.text
                 candidate_patterns = [(phrase, [w for w in chunk]) for phrase in phrases if phrase in possible_pattern and phrase != possible_pattern]
-                patterns_to_process.extend(candidate_patterns)  
+                patterns_to_process.extend(candidate_patterns)
             # patterns_to_process contains phrases and patterns. These have to be converted to usual format
             for phrase, raw_pattern in patterns_to_process:
                 raw_pattern_text = [p.text for p in raw_pattern]
@@ -170,12 +170,12 @@ def get_new_patterns_and_phrases(T_0, T, file, max_patterns, max_keywords):
                     constructed_pattern.append({"POS": token.pos_})
                 for token in raw_pattern[(match_start+phrase_len):]:
                     constructed_pattern.append({"TEXT": token.text})
-                
+
                 if raw_pattern[-1].pos_ == "PUNCT":
                     constructed_pattern = constructed_pattern[:-1]
                 if raw_pattern[0].pos_ == "PUNCT":
                     constructed_pattern = constructed_pattern[1:]
-                
+
                 if constructed_pattern not in unranked_patterns and len(constructed_pattern) <= 10 and len(constructed_pattern) > 0:
                     unranked_patterns.append(constructed_pattern)
     unranked_phrases = list(getPhrases(file, unranked_patterns))

@@ -90,7 +90,7 @@ def run_prdualrank(T_0, unranked_patterns, unranked_phrases, file):
                     if 'POS' in pattern_dict:
                         break
                     offset += 1
-                matcher.add("extraction", None, unranked_patterns[i])
+                matcher.add("extraction", [unranked_patterns[i]])
                 matches = matcher(doc)
                 for match_id, start, end in matches:
                     span = doc[start+offset:end].text
@@ -134,7 +134,7 @@ def get_new_patterns_and_phrases(T_0, T, file, max_patterns, max_keywords):
 
     current_patterns = [nlp(x) for x in T]
     phrase_matcher = PhraseMatcher(nlp.vocab)
-    phrase_matcher.add('pattern search', None, *current_patterns)
+    phrase_matcher.add('pattern search', current_patterns)
     unranked_patterns = []
     # find occurrences of seed phrases
     with open(file, "r") as f:

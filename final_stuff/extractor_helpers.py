@@ -18,7 +18,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 nlp = spacy.load('en_core_web_sm')
-infixes = tuple([r"'s\b", r"(?<!\d)\.(?!\d)"]) +  nlp.Defaults.prefixes
+
+# print(type(tuple([r"'s\b", r"(?<!\d)\.(?!\d)"])))
+# print(type(nlp.Defaults.prefixes))
+
+# print(nlp.Defaults.prefixes)
+infixes = [r"'s\b", r"(?<!\d)\.(?!\d)"] +  nlp.Defaults.prefixes
 infix_re = spacy.util.compile_infix_regex(infixes)
 
 def custom_tokenizer(nlp):
@@ -34,7 +39,7 @@ def extractor(document, *pattern):
     '''
     phrases = []
     matcher = Matcher(nlp.vocab)
-    matcher.add("pattern extraction", None, *pattern)
+    matcher.add("pattern extraction", pattern)
     doc = nlp(document)
     matches = matcher(doc)
     for match_id, start, end in matches:
@@ -65,7 +70,7 @@ def getPhrases(file, context_pattern):
                 pos_indices = [i for i in range(len(cp)) if 'POS' in cp[i]]
                 start_offset = min(pos_indices)
                 end_offset = max(pos_indices) + 1
-                matcher.add("extraction", None, cp)
+                matcher.add("extraction", [cp])
                 matches = matcher(doc)
                 for match_id, start, end in matches:
                     span = doc[start+start_offset:start+end_offset].text
