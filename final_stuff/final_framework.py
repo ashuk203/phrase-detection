@@ -1,3 +1,9 @@
+""" The _precision and _recall versions of this file
+differ only in what metric is taken from
+the PRDR output when ranking the tuples.
+It doesn't seem like NPChunking is being used
+in the final version.
+"""
 import spacy
 from spacy.matcher import Matcher
 from spacy.matcher import PhraseMatcher
@@ -92,6 +98,7 @@ def patternSearch(T_0, T, file, scoring_mode):
     phrase_matcher = PhraseMatcher(nlp.vocab)
     phrase_matcher.add('pattern search', None, *current_patterns)
     unranked_patterns = []
+
     # find occurrences of seed phrases
     with open(file, "r") as f:
         file_chunk = partition(f)
@@ -104,7 +111,8 @@ def patternSearch(T_0, T, file, scoring_mode):
                 p = tuple((start, end))
                 if p not in phrase_patterns:
                     phrase_patterns.add(p)
-    # find patterns around seed phrases
+
+            # find patterns around seed phrases
             for phrase_pattern in phrase_patterns:
                 start = phrase_pattern[0]
                 end = phrase_pattern[1]

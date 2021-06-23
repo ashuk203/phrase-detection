@@ -1,5 +1,5 @@
 import spacy
-# spacy.require_gpu()
+spacy.require_gpu()
 from spacy.matcher import Matcher
 from spacy.matcher import PhraseMatcher
 from spacy.tokenizer import Tokenizer
@@ -68,6 +68,9 @@ def getPhrases(file, context_pattern):
             doc = nlp(t)
             for cp in context_pattern:
                 pos_indices = [i for i in range(len(cp)) if 'POS' in cp[i]]
+                if len(pos_indices) == 0:
+                    continue
+                    
                 start_offset = min(pos_indices)
                 end_offset = max(pos_indices) + 1
                 matcher.add("extraction", [cp])

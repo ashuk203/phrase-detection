@@ -1,3 +1,7 @@
+""" Seems most similar to
+PRDR-Detect-PostRank in the paper.
+Also the closest one to the description in the paper.
+"""
 import spacy
 from spacy.matcher import Matcher
 from spacy.matcher import PhraseMatcher

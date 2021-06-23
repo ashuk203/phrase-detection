@@ -1,3 +1,7 @@
+""" Same as framework 7 (NPChunking Framework in Paper)
+with some minor adjustments to with document token
+parsing/handling?
+"""
 import spacy
 from spacy.matcher import Matcher
 from spacy.matcher import PhraseMatcher
@@ -258,10 +262,10 @@ def execute_ranking(T_0, file, scoring_mode, wiki_wiki, cs_categories):
     sorted_phrases_ids = sorted(phrase2fscore, key=phrase2fscore.__getitem__, reverse=True)
     ranked_keywords = [(unranked_phrases[i], phrase2fscore[i]) for i in sorted_phrases_ids] # All keywords are now ranked!
 
-    with open('../development_ipynbs/cm_precision.pickle', 'wb') as f:
+    with open('../development_ipynbs/cm_precision_v6.pickle', 'wb') as f:
         pickle.dump(phrase2precision, f)
         print("[LOG] Saving precision values.")
-    with open('../development_ipynbs/cm_recall.pickle', 'wb') as f:
+    with open('../development_ipynbs/cm_recall_v6.pickle', 'wb') as f:
         pickle.dump(phrase2recall, f)
         print("[LOG] Saving recall values.")
 

@@ -1,3 +1,7 @@
+""" This framework matches
+MultiSource-PRDR-Detect
+from the paper
+"""
 import spacy
 from spacy.matcher import Matcher
 from spacy.matcher import PhraseMatcher

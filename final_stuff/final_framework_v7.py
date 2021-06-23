@@ -1,3 +1,8 @@
+""" This framework most likely matches
+SingleInstance-PRDR-Detect-PostRank-WithNPChunking
+(and SingleInstance-PRDR-Detect-PostRank?)
+in the paper.
+"""
 import spacy
 from spacy.matcher import Matcher
 from spacy.matcher import PhraseMatcher

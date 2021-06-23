@@ -1,3 +1,7 @@
+""" Seems most similar to
+PRDR-Detect-PostRank
+in the paper
+"""
 import spacy
 from spacy.matcher import Matcher
 from spacy.matcher import PhraseMatcher
@@ -400,6 +404,8 @@ if (__name__ == "__main__"):
         total_ngram_counts = pickle.loads(f.read())
 
     with open(results_filename, "w+") as f:
+
+        # tqdm simply displays loading bar through iterations
         for i in tqdm(range(iter_num)):
             print("Iteration " + str(i+1) + "...\n")
             sorted_patterns = patternSearch(seed, keywords, lower_filename, 0)

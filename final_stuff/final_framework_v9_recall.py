@@ -249,8 +249,12 @@ def execute_ranking(T_0, file, scoring_mode, wiki_wiki, cs_categories):
         fscore = 0.0
 
         f1 = 0.0
-        f1 = recall
 
+        # Below line is the only change between _precision version of this file
+        # f1 = recall
+        f1 = ((2 * recall * precision) / (recall + precision))
+
+        # Scoring mode 9 is most likely PRDR-Detect-PostRank in paper
         if scoring_mode == 9: # Current Best Method
             if unranked_phrases[i] not in wiki_score_cache:
                 try:
